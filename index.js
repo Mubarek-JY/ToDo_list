@@ -19,6 +19,8 @@ addTaskBtn.onclick = function() {
     deleteBtn.textContent = "Delete task"
     const editBtn = document.createElement("button")
     editBtn.textContent = "Edit task"
+    const updateBtn = document.createElement("button")
+    updateBtn.textContent = "Update"
 
     // read the title and the description
     const readTitle = document.createElement("input")
@@ -26,9 +28,7 @@ addTaskBtn.onclick = function() {
     const readDescription = document.createElement("textarea")
     readDescription.placeholder = "Enter the Description of the task..."
 
-    task.append(readTitle)
-    task.append(readDescription)
-    task.append(saveBtn)
+    task.append(readTitle, readDescription, saveBtn)
 
     // saving...
     saveBtn.onclick = function() {
@@ -53,8 +53,19 @@ addTaskBtn.onclick = function() {
     // edit task
     editBtn.onclick = function() {
         editBtn.remove()
-        task.append(saveBtn)
+        task.append(updateBtn)
+        readTitle.value = taskTitle.textContent
+        readDescription.value = taskDescription.textContent
         taskTitle.replaceWith(readTitle)
         taskDescription.replaceWith(readDescription)
+    }
+    updateBtn.onclick = function() {
+        updateBtn.remove()
+        task.append(editBtn)
+        taskTitle.textContent = readTitle.value
+        taskDescription.textContent = readDescription.value
+
+        readTitle.replaceWith(taskTitle)
+        readDescription.replaceWith(taskDescription)
     }
 }
