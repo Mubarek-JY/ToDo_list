@@ -10,25 +10,45 @@ addTaskBtn.onclick = function() {
     task.classList.add("task")
     todoLists.append(task)
 
-    // create task content
+    // create task container's content
+    let btns = document.createElement("div")
+    btns.classList.add("btns")
+    let mainContent = document.createElement("div")
+    mainContent.classList.add("mainContent")
+
+    // create mainContent's elements
+
+    // inputs
+    const readTitle = document.createElement("input")
+    readTitle.placeholder = "Enter the title of the task here..."
+    const readDescription = document.createElement("textarea")
+    readDescription.placeholder = "Enter the Description of the task here..."
+    // results
     const taskTitle = document.createElement("h3")
     const taskDescription = document.createElement("p")
+    // append mainContent's input elements
+    mainContent.append(readTitle, readDescription)
+
+    // crete btns' elements
     const saveBtn = document.createElement("button")
     saveBtn.textContent = "Save task"
+    saveBtn.id = "saveBtn"
+
     const deleteBtn = document.createElement("button")
     deleteBtn.textContent = "Delete task"
+    deleteBtn.id = "deleteBtn"
+
     const editBtn = document.createElement("button")
     editBtn.textContent = "Edit task"
+    editBtn.id = "editBtn"
+    
     const updateBtn = document.createElement("button")
     updateBtn.textContent = "Update"
+    updateBtn.id = "updateBtn"
+    btns.append(saveBtn)
 
-    // read the title and the description
-    const readTitle = document.createElement("input")
-    readTitle.placeholder = "Enter the title of the task..."
-    const readDescription = document.createElement("textarea")
-    readDescription.placeholder = "Enter the Description of the task..."
-
-    task.append(readTitle, readDescription, saveBtn)
+    // append task container's content
+    task.append(mainContent, btns)
 
     // saving...
     saveBtn.onclick = function() {
@@ -39,21 +59,19 @@ addTaskBtn.onclick = function() {
         readTitle.replaceWith(taskTitle)
         readDescription.replaceWith(taskDescription)
 
-        task.append(deleteBtn)
-        task.append(editBtn)
-
-       // edit button will be added here
+        btns.append(deleteBtn)
+        btns.append(editBtn)
     }
-    
     
     // delete task
     deleteBtn.onclick = function() {
-        deleteBtn.parentElement.remove()
+        let parent = deleteBtn.parentElement
+        parent.parentElement.remove()
     }
     // edit task
     editBtn.onclick = function() {
         editBtn.remove()
-        task.append(updateBtn)
+        btns.append(updateBtn)
         readTitle.value = taskTitle.textContent
         readDescription.value = taskDescription.textContent
         taskTitle.replaceWith(readTitle)
@@ -61,7 +79,7 @@ addTaskBtn.onclick = function() {
     }
     updateBtn.onclick = function() {
         updateBtn.remove()
-        task.append(editBtn)
+        btns.append(editBtn)
         taskTitle.textContent = readTitle.value
         taskDescription.textContent = readDescription.value
 

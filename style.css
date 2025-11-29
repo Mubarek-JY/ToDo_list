@@ -1,3 +1,34 @@
+* {
+    margin: 0;
+}
+#mainTitle {
+    background-color: lightblue;
+    height: 50px;
+    width: 100%;
+    color: hsla(0, 0%, 0%, 0.70);
+    display: flex;
+    justify-content: center;
+}
+button:hover {
+    cursor: pointer;
+    transform: scale(1.01);
+    transition: 0.15s;
+}
+#addTaskBtn {
+    border: none;
+    color: green;
+    font-size: 1.5rem;
+    margin: 15px 15px;
+    background-color: hsla(120, 73%, 75%, 0.4);
+    padding: 5px 15px;
+    border-radius: 5px;
+}
+#addTaskBtn:hover {
+    background-color: hsla(120, 73%, 75%, 0.5);
+    cursor: pointer;
+    transform: scale(1.01);
+    transition: 0.15s;
+}
 .task {
     padding: 10px;
     margin: 10px;
@@ -5,8 +36,54 @@
     box-shadow: 1px 1px 3px black;
     background-color: aliceblue;
 }
-.task textarea, .task input {
+.mainContent textarea, .mainContent input {
+    border: 1px solid hsla(0, 0%, 0%, 0.25);
     display: flex;
-    justify-content: center;
+    justify-self: center;
+    margin-bottom: 10px;
+}
+.mainContent input {
+    text-align: center;
+    border-radius: 2px;
+    width: 50%;
+    height: 25px;
+}
+.mainContent textarea {
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+    width: 95%;
+    height: 50px;
+}
+.mainContent h3 {
+    margin-bottom: 10px;
+    text-align: center;
+}
+.mainContent textarea:focus, .mainContent input:focus{
+    outline: 1px solid hsla(0, 0%, 0%, 0.75);
+    
+}
+.mainContent input:focus::placeholder {
+    visibility: hidden;
+}
+.btns {
+    display: flex;
+    justify-content: end;
+}
+.btns button {
+    border: none;
+    font-size: 1.05rem;
+    background-color: hsl(195, 53%, 89%);
+    padding: 5px 10px;
     margin: 10px;
+    border-radius: 5px;
+}
+#saveBtn, #updateBtn {
+    color: hsl(120, 100%, 25%, 0.75);
+}
+#deleteBtn {
+    color: hsla(0, 100%, 50%, 0.75);
+}
+.btns button:hover {
+    background-color: hsl(195, 53%, 85%);
 }
