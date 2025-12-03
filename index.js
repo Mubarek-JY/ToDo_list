@@ -1,15 +1,11 @@
 const todoLists = document.getElementById("todoLists")
 const addTaskBtn = document.getElementById("addTaskBtn")
-let taskNumber = 0
 
-addTaskBtn.onclick = function() {
-    taskNumber++
-
-    // create and append task container
+// create and append task container
+function createTaskContainer(){
     const task = document.createElement("div")
     task.classList.add("task")
     todoLists.append(task)
-
     // create task container's content
     let btns = document.createElement("div")
     btns.classList.add("btns")
@@ -50,40 +46,49 @@ addTaskBtn.onclick = function() {
     // append task container's content
     task.append(mainContent, btns)
 
+    return {updateBtn, editBtn, deleteBtn, saveBtn, taskDescription, taskTitle, readDescription, readTitle, btns, task}
+}
+function saveHandler(taskElements, taskNumber) {
+    taskElements.saveBtn.remove()    
+    taskElements.taskTitle.textContent = "Task #" + taskNumber + ": " + taskElements.readTitle.value
+    taskElements.taskDescription.textContent = taskElements.readDescription.value
+
+    taskElements.readTitle.replaceWith(taskElements.taskTitle)
+    taskElements.readDescription.replaceWith(taskElements.taskDescription)
+
+    taskElements.btns.append(taskElements.deleteBtn)
+    taskElements.btns.append(taskElements.editBtn)
+}
+function deleteHandler(taskElements){
+        taskElements.task.remove()
+}
+function editHandler(taskElements){
+    taskElements.editBtn.remove()
+    taskElements.btns.append(taskElements.updateBtn)
+    taskElements.readTitle.value = taskElements.taskTitle.textContent
+    taskElements.readDescription.value = taskElements.taskDescription.textContent
+    taskElements.taskTitle.replaceWith(taskElements.readTitle)
+    taskElements.taskDescription.replaceWith(taskElements.readDescription)
+}
+function updateHandler(taskElements){
+    taskElements.updateBtn.remove()
+    taskElements.btns.append(taskElements.editBtn)
+    taskElements.taskTitle.textContent = taskElements.readTitle.value
+    taskElements.taskDescription.textContent = taskElements.readDescription.value
+
+    taskElements.readTitle.replaceWith(taskElements.taskTitle)
+    taskElements.readDescription.replaceWith(taskElements.taskDescription)
+}
+addTaskBtn.onclick = function() {
+    let taskNumber = document.querySelectorAll(".task").length + 1
+    let taskElements = createTaskContainer()
+
     // saving...
-    saveBtn.onclick = function() {
-        saveBtn.remove()
-        taskTitle.textContent = "Task #" + taskNumber + ": " + readTitle.value
-        taskDescription.textContent = readDescription.value
-
-        readTitle.replaceWith(taskTitle)
-        readDescription.replaceWith(taskDescription)
-
-        btns.append(deleteBtn)
-        btns.append(editBtn)
-    }
-    
+    taskElements.saveBtn.addEventListener("click", () => saveHandler(taskElements, taskNumber))
     // delete task
-    deleteBtn.onclick = function() {
-        let parent = deleteBtn.parentElement
-        parent.parentElement.remove()
-    }
+    taskElements.deleteBtn.addEventListener("click", () => deleteHandler(taskElements))
     // edit task
-    editBtn.onclick = function() {
-        editBtn.remove()
-        btns.append(updateBtn)
-        readTitle.value = taskTitle.textContent
-        readDescription.value = taskDescription.textContent
-        taskTitle.replaceWith(readTitle)
-        taskDescription.replaceWith(readDescription)
-    }
-    updateBtn.onclick = function() {
-        updateBtn.remove()
-        btns.append(editBtn)
-        taskTitle.textContent = readTitle.value
-        taskDescription.textContent = readDescription.value
-
-        readTitle.replaceWith(taskTitle)
-        readDescription.replaceWith(taskDescription)
-    }
+    taskElements.editBtn.addEventListener("click", () => editHandler(taskElements))
+    
+    taskElements.updateBtn.addEventListener("click", () => updateHandler(taskElements))
 }
