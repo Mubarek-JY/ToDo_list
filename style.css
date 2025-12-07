@@ -79,10 +79,10 @@ button:hover {
     margin-left: 9px;
     border-radius: 5px;
 }
-#saveBtn, #updateBtn {
+.saveBtn, .updateBtn {
     color: hsl(120, 100%, 25%, 0.75);
 }
-#deleteBtn {
+.deleteBtn {
     color: hsla(0, 100%, 50%, 0.75);
 }
 .btns button:hover {
